@@ -1,19 +1,30 @@
-import { Title } from "solid-start";
-import Counter from "~/components/Counter";
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
-export default function Home() {
+function RedirectReactRouterExample() {
   return (
-    <main>
-      <Title>Hello World</Title>
-      <h1>Hello world!</h1>
-      <Counter />
-      <p>
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
-    </main>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="about" element={<About />} />
+    </Routes>
   );
 }
+
+function About() {
+  return <div>About</div>;
+}
+
+function Index() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      // Redirects to the '/about' page with 'replace: true'
+      navigate('/about', { replace: true });
+    }, 3000); // Redirect after 3 seconds
+  }, []);
+
+  return <div>Redirecting...</div>;
+}
+
+export default RedirectReactRouterExample;
